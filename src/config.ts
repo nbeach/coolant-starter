@@ -1,0 +1,17 @@
+import {CoolantConfiguration} from "./model/CoolantConfiguration"
+import {BuildStatus} from "./model/BuildStatus"
+
+export const configuration: CoolantConfiguration = {
+    name: "Top Gun",
+    buildResolver: () => Promise.resolve([
+        { id: "1", name: "Lorem ipsum",  status: BuildStatus.Passed },
+        { id: "2", name: "Dolor sit amet", status: BuildStatus.Running },
+        { id: "3", name: "Quis nostrud", status: BuildStatus.Failed },
+        { id: "4", name: "Consectetur adipiscing", status: BuildStatus.Passed },
+        { id: "5", name: "Duis aute irure", status: BuildStatus.Passed },
+        { id: "6", name: "Non proident", status: BuildStatus.Running },
+        { id: "7", name: "Excepteur sint", status: BuildStatus.Failed },
+        { id: "8", name: "Officia deserunt", status: BuildStatus.Passed },
+    ]),
+    onBuildCompletion: (build, oldStatus, newStatus) => {},
+}
