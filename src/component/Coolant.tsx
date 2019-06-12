@@ -6,6 +6,7 @@ import {initializeStore} from "../store"
 
 const Container = styled.div`
     display: flex;
+    height: 98vh;
 `
 
 export const Coolant = (props: PropsWithChildren<{ readonly configuration: CoolantConfiguration }>) =>

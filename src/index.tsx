@@ -6,10 +6,13 @@ import * as serviceWorker from "./serviceWorker"
 import {Coolant} from "./component/Coolant"
 import {configuration} from "./config"
 import {Branding} from "./component/Branding"
-import {BuildList} from "./component/build/BuildList"
+import {BuildList} from "./component/BuildList"
+import logo from "./logo.png"
 
 ReactDOM.render(<Coolant configuration={configuration}>
-    <Branding/>
+    <Branding>
+        <img src={logo} style={{maxWidth: "40vw"}}/>
+    </Branding>
     <BuildList/>
 </Coolant>, document.getElementById("root"))
 
