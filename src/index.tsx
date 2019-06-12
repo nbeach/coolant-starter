@@ -11,6 +11,7 @@ import {BuildStatus} from "./model/BuildStatus"
 import {CoolantConfiguration} from "./model/CoolantConfiguration"
 import axios from "axios"
 import {groupBy} from "lodash"
+import {playStandupSound} from "./util/StandupMusic"
 
 
 const circleCiStatusMap = {
@@ -39,6 +40,7 @@ export const configuration: CoolantConfiguration = {
 }
 
 const mostRecent = (acc: any, next: any) => acc.queued_at > next.queued_at ? acc : next
+playStandupSound("danger-zone.mp3",  "09:44")
 
 ReactDOM.render(<Coolant configuration={configuration}>
     <Branding>
