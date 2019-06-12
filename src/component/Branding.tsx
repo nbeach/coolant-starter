@@ -3,9 +3,9 @@ import React, {PropsWithChildren} from "react"
 
 const Container = styled.div`
     display: flex;
-    flex-grow: 1;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
 `
 
 export const Branding = (props: PropsWithChildren<{}> ) =>

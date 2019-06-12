@@ -21,7 +21,7 @@ const Card = styled.div<{ readonly status: BuildStatus}>`
     background-color: ${({status}) => statusColorMap[status]};
     padding: 1rem 3.5rem 1rem 3.5rem;
     margin: 0.25rem;
-    box-shadow: 2px 2px 3px rgb(200, 200, 200);
+    box-shadow: 5px 5px 7px rgb(200, 200, 200);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,7 +31,7 @@ const Card = styled.div<{ readonly status: BuildStatus}>`
 `
 
 const Name = styled.div`
-    font-size: 1.75rem;
+    font-size: 3.75rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
