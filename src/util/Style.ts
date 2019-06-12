@@ -7,9 +7,9 @@ export const Style = {
 
         },
         state: {
-            passed: "rgb(109,202,109)",
-            running: "rgb(75,172,199)",
-            failed: "rgb(201,80,77)",
+            passed: "rgb(40,167,59)",
+            running: "rgb(23,162,184)",
+            failed: "rgb(219,53,69)",
         },
     },
 }

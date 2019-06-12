@@ -17,8 +17,9 @@ const statusGlpyhMap = {
     [BuildStatus.Failed]: <FaExclamation/>,
 }
 
-const Card = styled.div<{ readonly status: BuildStatus}>`
+const Card = styled.div<{ readonly status: BuildStatus, readonly scaleFactor: number}>`
     background-color: ${({status}) => statusColorMap[status]};
+    color: rgb(255,255,255);
     padding: 1rem 3.5rem 1rem 3.5rem;
     margin: 0.25rem;
     box-shadow: 5px 5px 7px rgb(200, 200, 200);
@@ -27,20 +28,16 @@ const Card = styled.div<{ readonly status: BuildStatus}>`
     align-items: center;
     flex-grow: 1;
     width: auto;
-
+    font-size: ${({scaleFactor}) => 9.28 * Math.pow(scaleFactor, -0.63)}rem;
 `
 
 const Name = styled.div`
-    font-size: 3.75rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 `
-const Indicator = styled.div`
-    font-size: 1.75rem;
-`
 
-export const BuildCard = ({ name, status }: Build) =>
-    <Card status={status}>
-        <Indicator>{statusGlpyhMap[status]}</Indicator>&nbsp;&nbsp;<Name> {name}</Name>
+export const BuildCard = ({ name, status, scaleFactor }: Build & { readonly scaleFactor: number }) =>
+    <Card status={status} scaleFactor={scaleFactor}>
+        {statusGlpyhMap[status]}&nbsp;&nbsp;<Name> {name}</Name>
     </Card>

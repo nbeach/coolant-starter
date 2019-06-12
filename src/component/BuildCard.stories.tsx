@@ -21,6 +21,6 @@ const failingState: Build = {
 }
 
 storiesOf(BuildCard.name, module)
-    .add("passing build", () => <BuildCard {...passingState}/>)
-    .add("failing build", () => <BuildCard {...failingState}/>)
-    .add("running build", () => <BuildCard {...runningState}/>)
+    .add("passing build", () => <BuildCard scaleFactor={1} {...passingState}/>)
+    .add("failing build", () => <BuildCard scaleFactor={1} {...failingState}/>)
+    .add("running build", () => <BuildCard scaleFactor={1} {...runningState}/>)
