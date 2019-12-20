@@ -1,15 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import {Branding} from "coolant/build/component/Branding"
-import {
-    atTime,
-    Build,
-    BuildList,
-    BuildStatus,
-    onBuildStatusChange,
-    buildNowPassing,
-    playSound, buildNowFailing,
-} from "coolant"
+import {atTime, Build, buildFailed, BuildList, buildNowPassing, BuildStatus, onNewBuild, playSound,} from "coolant"
 // @ts-ignore
 import logo from "./logo.png"
 // @ts-ignore
@@ -26,6 +18,7 @@ setInterval(() => { buildPassing = Math.random() < 0.5 ? BuildStatus.Failed : Bu
 const buildProvider = async (): Promise<ReadonlyArray<Build>> => {
    return Promise.resolve([{
             id: "1",
+            number: Math.random().toString(),
             name: "master",
             status: buildPassing,
         }])
@@ -33,9 +26,9 @@ const buildProvider = async (): Promise<ReadonlyArray<Build>> => {
 
 atTime("15:49", () => playSound(dangerZone))
 
-onBuildStatusChange(buildProvider, (priorBuild, currentBuild) => {
+onNewBuild(buildProvider, (priorBuild, currentBuild) => {
     if (buildNowPassing(priorBuild, currentBuild)) { playSound(gotDucks) }
-    if (buildNowFailing(priorBuild, currentBuild)) { playSound(dogLaugh) }
+    if (buildFailed(currentBuild)) { playSound(dogLaugh) }
 })
 
 ReactDOM.render(<>
