@@ -3207,9 +3207,9 @@ is-url@^1.2.2:
   integrity sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==
 
 is-what@^3.3.1:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/is-what/-/is-what-3.4.0.tgz#a9b3fe0c22f52d49efef977f640da44e65a3f866"
-  integrity sha512-oFdBRuSY9PocqPoUUseDXek4I+A1kWGigZGhuG+7GEkp0tRkek11adc0HbTEVsNvtojV7rp0uhf5LWtGvHzoOQ==
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/is-what/-/is-what-3.5.0.tgz#c50b0e8f3021e0b39410c159bea43a5510d99027"
+  integrity sha512-00pwt/Jf7IaRh5m2Dp93Iw8LG2cd3OpDj3NrD1XPNUpAWVxPvBP296p4IiGmIU4Ur0f3f56IoIM+fS2pFYF+tQ==
 
 is-windows@^1.0.2:
   version "1.0.2"
