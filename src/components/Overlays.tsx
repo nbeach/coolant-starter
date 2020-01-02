@@ -1,5 +1,6 @@
 import React from "react"
-import {Image} from "../images"
+import DogLaughingImage from "../images/dog-laughing.gif"
+import DogWithDucksImage from "../images/dog-with-ducks.jpg"
 
 const centeredStyle = {
     display: "flex",
@@ -9,8 +10,8 @@ const centeredStyle = {
 }
 
 export const FailureOverlay = () => <div style={centeredStyle}>
-    <img src={Image.DogLaughing} style={{height: "70%"}}/>
+    <img src={DogLaughingImage} style={{height: "70%"}}/>
 </div>
 export const SuccessOverlay = () => <div style={centeredStyle}>
-    <img src={Image.DogWithDucks} style={{height: "100%"}}/>
+    <img src={DogWithDucksImage} style={{height: "100%"}}/>
 </div>

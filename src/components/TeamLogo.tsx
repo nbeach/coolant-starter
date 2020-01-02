@@ -1,8 +1,8 @@
 import React from "react"
-import {Image} from "../images"
+import TeamLogoImage from "../images/team-logo.png"
 
 export const TeamLogo = () =>
     <span style={{ margin: "0.25rem", width: "40%"}}>
-        <img src={Image.TeamLogo} style={{ width: "100%", backgroundColor: "#FFFFFF"}}/>
+        <img src={TeamLogoImage} style={{ width: "100%", backgroundColor: "#FFFFFF"}}/>
     </span>
 

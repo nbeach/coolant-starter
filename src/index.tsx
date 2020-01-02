@@ -1,18 +1,36 @@
 import ReactDOM from "react-dom"
 import {TeamLogo} from "./components/TeamLogo"
-import {atTime, buildFailed, BuildList, buildNowPassing, onNewBuild, playSound, Radiator, Muted} from "coolant"
+import {
+    atTime,
+    buildFailed,
+    BuildList,
+    buildNowPassing,
+    onNewBuild,
+    playSound,
+    Radiator,
+    Muted,
+    showOverlay,
+} from "coolant"
 import {buildProvider, pullRequestProvider} from "./providers"
 import {PullRequestList} from "coolant/build/component/PullRequestList"
 import React from "react"
-import {Sound} from "./sounds"
-import {doFailureShaming, doSuccessExclamation} from "./action"
-import styled from "styled-components";
+import styled from "styled-components"
+import DangerZoneMusic from "./sounds/danger-zone.mp3"
+import DogLaughingSound from "./sounds/dog-laughing.wav"
+import {FailureOverlay, SuccessOverlay} from "./components/Overlays"
+import DogWithDucksSound from "./sounds/dog-with-ducks.wav"
 
-atTime("15:49", () => playSound(Sound.DangerZone))
+atTime("15:49", () => playSound(DangerZoneMusic))
 
 onNewBuild(buildProvider, (priorBuild, currentBuild) => {
-    if (buildNowPassing(priorBuild, currentBuild)) { doSuccessExclamation() }
-    if (buildFailed(currentBuild)) { doFailureShaming() }
+    if (buildNowPassing(priorBuild, currentBuild)) {
+        playSound(DogWithDucksSound)
+        showOverlay(3, <SuccessOverlay/>)
+    }
+    if (buildFailed(currentBuild)) {
+        playSound(DogLaughingSound)
+        showOverlay(3, <FailureOverlay/>)
+    }
 })
 
 const Column = styled.div`flex-grow: 1;`

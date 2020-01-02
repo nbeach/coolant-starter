@@ -20,7 +20,7 @@ export const buildProvider = cachingProvider(() => {
             number: "1",
             name: "Admin",
             status: BuildStatus.Passed,
-        }
+        },
     ])
 }, 10)
 
