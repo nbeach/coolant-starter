@@ -13,8 +13,7 @@ import {
 } from "coolant"
 import {buildProvider, pullRequestProvider} from "./providers"
 import {PullRequestList} from "coolant/build/component/PullRequestList"
-import React from "react"
-import styled from "styled-components"
+import React, {PropsWithChildren} from "react"
 import DangerZoneMusic from "./sounds/danger-zone.mp3"
 import DogLaughingSound from "./sounds/dog-laughing.wav"
 import {FailureOverlay, SuccessOverlay} from "./components/Overlays"
@@ -33,7 +32,7 @@ onNewBuild(buildProvider, (priorBuild, currentBuild) => {
     }
 })
 
-const Column = styled.div`flex-grow: 1;`
+const Column = (props: PropsWithChildren<{}>) => <div style={{flexGrow: 1 }}>{props.children}</div>
 
 ReactDOM.render(<Radiator>
     <TeamLogo/>
