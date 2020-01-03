@@ -46,7 +46,7 @@ export const pullRequestProvider: Provider<readonly PullRequest[]> = () => {
             name: "9675309 - Add the things",
             approvals: 2,
             timeOpened: moment("2019-12-20T12:00:00Z"),
-            status: PullRequestStatus.ReadyToMerge,
+            status: PullRequestStatus.UnderReview,
         },
     ])
 }

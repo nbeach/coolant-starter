@@ -5,14 +5,14 @@ import {
     buildFailed,
     BuildList,
     buildNowPassing,
+    Muted,
     onNewBuild,
     playSound,
+    PullRequestList,
     Radiator,
-    Muted,
     showOverlay,
 } from "coolant"
 import {buildProvider, pullRequestProvider} from "./providers"
-import {PullRequestList} from "coolant/build/component/PullRequestList"
 import React, {PropsWithChildren} from "react"
 import DangerZoneMusic from "./sounds/danger-zone.mp3"
 import DogLaughingSound from "./sounds/dog-laughing.wav"
