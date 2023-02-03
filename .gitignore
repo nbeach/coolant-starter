@@ -34,3 +34,4 @@ out/
 *.iws
 .cache/
 dist/
+.parcel-cache/
