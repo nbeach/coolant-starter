@@ -4,6 +4,7 @@
     "start": "parcel src/index.html",
     "lint": "tslint --project .",
     "lint:fix": "tslint --fix --project .",
+    "storybook": "export NODE_OPTIONS=--openssl-legacy-provider; start-storybook -s ./public",
     "compile": "tsc --noEmit"
   },
   "dependencies": {
@@ -15,10 +16,11 @@
   },
   "devDependencies": {
     "@types/react-dom": "16.8.4",
+    "awesome-typescript-loader": "^5.2.1",
     "parcel": "^1.12.4",
     "tslint": "^5.15.0",
     "tslint-immutable": "^5.5.2",
-    "@babel/core": "^7.5.5",
-    "@storybook/react": "^5.2.8"
+    "@babel/core": "^7.20.12",
+    "@storybook/react": "^6.5.16"
   }
 }
