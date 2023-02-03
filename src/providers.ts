@@ -1,5 +1,7 @@
-import {BuildStatus, cachingProvider, Provider, PullRequest, PullRequestStatus} from "coolant"
 import moment from "moment"
+import {cachingProvider, Provider} from "./util/Provider"
+import {BuildStatus} from "./model/Build"
+import {PullRequest, PullRequestStatus} from "./model/PullRequest"
 
 export const buildProvider = cachingProvider(() => {
     return Promise.resolve([

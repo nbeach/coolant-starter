@@ -1,23 +1,18 @@
 import ReactDOM from "react-dom"
 import {TeamLogo} from "./components/TeamLogo"
-import {
-    atTime,
-    buildFailed,
-    BuildList,
-    buildNowPassing,
-    Muted,
-    onNewBuild,
-    playSound,
-    PullRequestList,
-    Radiator,
-    showOverlay,
-} from "coolant"
 import {buildProvider, pullRequestProvider} from "./providers"
 import React, {PropsWithChildren} from "react"
 import DangerZoneMusic from "./sounds/danger-zone.mp3"
 import DogLaughingSound from "./sounds/dog-laughing.wav"
 import {FailureOverlay, SuccessOverlay} from "./components/Overlays"
 import DogWithDucksSound from "./sounds/dog-with-ducks.wav"
+import {buildFailed, buildNowPassing, onNewBuild} from "./event/Build"
+import {atTime} from "./event/Time"
+import {Muted, Radiator} from "./component/Radiator"
+import {BuildList} from "./component/BuildList"
+import {PullRequestList} from "./component/PullRequestList"
+import {playSound} from "./effect/Sound"
+import {showOverlay} from "./effect/Overlay"
 
 atTime("15:49", () => playSound(DangerZoneMusic))
 
@@ -32,7 +27,7 @@ onNewBuild(buildProvider, (priorBuild, currentBuild) => {
     }
 })
 
-const Column = (props: PropsWithChildren<{}>) => <div style={{flexGrow: 1 }}>{props.children}</div>
+const Column = (props: PropsWithChildren<any>) => <div style={{flexGrow: 1 }}>{props.children}</div>
 
 ReactDOM.render(<Radiator>
     <TeamLogo/>
