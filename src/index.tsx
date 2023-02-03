@@ -38,4 +38,4 @@ ReactDOM.render(<Radiator>
     </Column>
 </Radiator>, document.getElementById("root"))
 
-// alert("Some Coolant features, such as sound, require the user to interaction with the page before the browser will allow them. Dismissing this message will count as that interaction and enable them.")
+alert("Some Coolant features, such as sound, require the user to interaction with the page before the browser will allow them. Dismissing this message will count as that interaction and enable them.")
