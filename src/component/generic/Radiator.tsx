@@ -1,5 +1,5 @@
 import {styled} from "./styled"
-import {Style} from "../util/Style"
+import {Style} from "../../util/Style"
 
 export const Radiator = styled("div", () => ({
     position: "fixed",

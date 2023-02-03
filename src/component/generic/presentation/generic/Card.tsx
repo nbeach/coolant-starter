@@ -1,6 +1,6 @@
 import React, {PropsWithChildren} from "react"
 import {styled} from "../../styled"
-import {Style} from "../../../util/Style"
+import {Style} from "../../../../util/Style"
 
 export const CardContainer = styled<{ readonly color: string, readonly scaleFactor: number}>("div", config => ({
     display: "flex",

@@ -2,7 +2,7 @@ import React from "react"
 import {BuildCardPresenter} from "./BuildCardPresenter"
 import {ConnectedDataProp} from "../Connector"
 import {styled} from "../styled"
-import {Build} from "../../model/Build"
+import {Build} from "../../../model/Build"
 
 export interface BuildListPresenterProps {
     readonly scaleFactor?: number

@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from "react"
-import {Provider} from "../util/Provider"
-import {periodically} from "../event/Time"
+import {Provider} from "../../util/Provider"
+import {periodically} from "../../event/Time"
 
 export interface ConnectedDataProp<DataPropType> {
     readonly data: DataPropType

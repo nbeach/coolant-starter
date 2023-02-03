@@ -3,7 +3,7 @@ import {storiesOf} from "@storybook/react"
 import React from "react"
 import moment from "moment"
 import {Radiator} from "../Radiator"
-import {PullRequest, PullRequestStatus} from "../../model/PullRequest"
+import {PullRequest, PullRequestStatus} from "../../../model/PullRequest"
 
 const pullRequests: readonly PullRequest[] = [
     { id: "1", name: "Lorem ipsum",             timeOpened: moment("2019-08-05T12:00:00Z"), approvals: 3, status: PullRequestStatus.UnderReview },

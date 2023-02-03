@@ -2,7 +2,7 @@ import React from "react"
 import {storiesOf} from "@storybook/react"
 import {BuildListPresenter} from "./BuildListPresenter"
 import {Radiator} from "../Radiator"
-import {Build, BuildStatus} from "../../model/Build"
+import {Build, BuildStatus} from "../../../model/Build"
 
 const builds: readonly Build[] = [
     { id: "1", number: "", name: "Lorem ipsum",  status: BuildStatus.Passed },

@@ -1,8 +1,8 @@
 import moment, {Moment} from "moment"
 import React from "react"
 import {Card} from "./generic/Card"
-import {Style} from "../../util/Style"
-import {PullRequest, PullRequestStatus} from "../../model/PullRequest"
+import {Style} from "../../../util/Style"
+import {PullRequest, PullRequestStatus} from "../../../model/PullRequest"
 
 export const PullRequestCardPresenter = (props: { readonly pullRequest: PullRequest, readonly scaleFactor?: number}) =>
     <Card color={statusColorMap[props.pullRequest.status]} scaleFactor={props.scaleFactor}>

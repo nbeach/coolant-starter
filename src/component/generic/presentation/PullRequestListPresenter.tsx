@@ -2,8 +2,8 @@ import React from "react"
 import {PullRequestCardPresenter} from "./PullRequestCardPresenter"
 import {ConnectedDataProp} from "../Connector"
 import {styled} from "../styled"
-import {Style} from "../../util/Style"
-import {PullRequest} from "../../model/PullRequest"
+import {Style} from "../../../util/Style"
+import {PullRequest} from "../../../model/PullRequest"
 
 export interface PullRequestCardPresenterProps {
     readonly scaleFactor?: number

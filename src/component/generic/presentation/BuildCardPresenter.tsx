@@ -2,8 +2,8 @@ import React from "react"
 import {FaCheck, FaClock, FaExclamation} from "react-icons/fa"
 import {Card} from "./generic/Card"
 import {styled} from "../styled"
-import {Style} from "../../util/Style"
-import {Build, BuildStatus} from "../../model/Build"
+import {Style} from "../../../util/Style"
+import {Build, BuildStatus} from "../../../model/Build"
 
 const statusColorMap = {
     [BuildStatus.Passed]: Style.color.state.success,
