@@ -4,23 +4,30 @@
     "start": "parcel src/index.html",
     "lint": "tslint --project .",
     "lint:fix": "tslint --fix --project .",
-    "storybook": "export NODE_OPTIONS=--openssl-legacy-provider; start-storybook -s ./public",
-    "compile": "tsc --noEmit"
+    "compile": "tsc --noEmit",
+    "storybook": "export NODE_OPTIONS=--openssl-legacy-provider; start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "moment": "^2.24.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.12.0",
-    "react-icons": "^3.7.0",
-    "typescript": "3.7.3"
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "4.7.1",
+    "typescript": "4.9.5"
   },
   "devDependencies": {
-    "@types/react-dom": "16.8.4",
-    "awesome-typescript-loader": "^5.2.1",
-    "parcel": "^2.8.3",
-    "tslint": "^5.15.0",
-    "tslint-immutable": "^5.5.2",
-    "@babel/core": "^7.20.12",
-    "@storybook/react": "^6.5.16"
+    "@storybook/addon-actions": "^6.5.16",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-interactions": "^6.5.16",
+    "@storybook/addon-links": "^6.5.16",
+    "@storybook/builder-webpack4": "^6.5.16",
+    "@storybook/manager-webpack4": "^6.5.16",
+    "@storybook/react": "^6.5.16",
+    "@storybook/testing-library": "^0.0.13",
+    "@types/react-dom": "18.0.10",
+    "babel-loader": "^8.3.0",
+    "parcel": "2.8.3",
+    "tslint": "5.15.0",
+    "tslint-immutable": "5.5.2"
   }
 }
