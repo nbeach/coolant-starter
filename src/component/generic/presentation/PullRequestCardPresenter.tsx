@@ -1,24 +1,37 @@
 import moment, {Moment} from "moment"
 import React from "react"
-import {Card} from "./generic/Card"
 import {Style} from "../../../util/Style"
 import {PullRequest, PullRequestStatus} from "../../../model/PullRequest"
+import {FaComment, FaThumbsUp} from "react-icons/fa"
+import {styled} from "../styled"
 
-export const PullRequestCardPresenter = (props: { readonly pullRequest: PullRequest, readonly scaleFactor?: number}) =>
-    <Card color={statusColorMap[props.pullRequest.status]} scaleFactor={props.scaleFactor}>
-        <div>{props.pullRequest.name}</div>
-        <div>
-            {timeElapsed(props.pullRequest.timeOpened)}
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            +{props.pullRequest.approvals}
-        </div>
-    </Card>
+export const PullRequestCardPresenter = (props: { readonly pullRequest: PullRequest, readonly row: number}) =>
+<>
+    <Cell column={1} row={props.row} status={props.pullRequest.status}>{props.pullRequest.name}</Cell>
+    <Cell column={2} row={props.row} status={props.pullRequest.status}>
+        {timeElapsed(props.pullRequest.timeOpened)}
+    </Cell>
+    <Cell column={3} row={props.row} status={props.pullRequest.status}>
+        +{props.pullRequest.approvals}
+    </Cell>
+    <Cell column={4} row={props.row} status={props.pullRequest.status}>
+        {props.pullRequest.reviewers.map(reviewer => <>{reviewer.name} {reviewer.approved ? <FaThumbsUp/> : <FaComment/>} </>)}
+    </Cell>
+</>
 
 const statusColorMap = {
     [PullRequestStatus.New]: Style.color.state.failed,
     [PullRequestStatus.UnderReview]: Style.color.state.inProgress,
     [PullRequestStatus.ReadyToMerge]: Style.color.state.success,
 }
+
+const Cell = styled<{readonly column: number, readonly row: number, readonly status: PullRequestStatus}>("div", ({column, row, status}) => ({
+    gridColumn: column,
+    gridRow: row,
+    backgroundColor: statusColorMap[status],
+    padding: "10px",
+}))
+
 const timeElapsed = (startTime: Moment): string => {
     const timeDifference = moment().diff(startTime)
     const elapsedMinutes =  moment.duration(timeDifference).asMinutes()
