@@ -1,12 +1,13 @@
 import {Moment} from "moment"
 
 export interface PullRequest {
+    readonly repo: string
     readonly id: string
     readonly name: string
+    readonly link: string
     readonly timeOpened: Moment
-    readonly approvals: number
     readonly status: PullRequestStatus
-    readonly reviewers: ReadonlyArray<Reviewer>
+    readonly reviewers: readonly Reviewer[]
 }
 
 export interface Reviewer {

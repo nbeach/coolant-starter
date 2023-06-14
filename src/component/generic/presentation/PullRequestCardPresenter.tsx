@@ -7,15 +7,17 @@ import {styled} from "../styled"
 
 export const PullRequestCardPresenter = (props: { readonly pullRequest: PullRequest, readonly row: number}) =>
 <>
-    <Cell column={1} row={props.row} status={props.pullRequest.status}>{props.pullRequest.name}</Cell>
+    <Cell column={1} row={props.row} status={props.pullRequest.status}>
+        {props.pullRequest.repo}
+    </Cell>
     <Cell column={2} row={props.row} status={props.pullRequest.status}>
-        {timeElapsed(props.pullRequest.timeOpened)}
+        <a href={props.pullRequest.link} target="_blank">{props.pullRequest.name}</a>
     </Cell>
     <Cell column={3} row={props.row} status={props.pullRequest.status}>
-        +{props.pullRequest.approvals}
+        {timeElapsed(props.pullRequest.timeOpened)}
     </Cell>
     <Cell column={4} row={props.row} status={props.pullRequest.status}>
-        {props.pullRequest.reviewers.map(reviewer => <>{reviewer.name} {reviewer.approved ? <FaThumbsUp/> : <FaComment/>} </>)}
+        {props.pullRequest.reviewers.map(reviewer => <span>{reviewer.name} {reviewer.approved ? <FaThumbsUp/> : <FaComment/>} </span>)}
     </Cell>
 </>
 
