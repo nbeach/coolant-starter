@@ -1,8 +1,7 @@
 import React from "react"
 import {storiesOf} from "@storybook/react"
-import {BuildListPresenter} from "./BuildListPresenter"
-import {Radiator} from "../Radiator"
-import {Build, BuildStatus} from "../../../model/Build"
+import {Build, BuildStatus} from "../model/Build"
+import {BuildsPresenter} from "./Builds"
 
 const builds: readonly Build[] = [
     { id: "1", number: "", name: "Lorem ipsum",  status: BuildStatus.Passed },
@@ -15,8 +14,6 @@ const builds: readonly Build[] = [
     { id: "8", number: "", name: "Officia deserunt", status: BuildStatus.Passed },
 ]
 
-storiesOf("BuildListPresenter", module)
-    .addDecorator((story) => <Radiator>{story()}</Radiator>)
-    .add("one build", () => <BuildListPresenter data={[builds[0]]}/>)
-    .add("many builds", () => <BuildListPresenter data={builds}/>)
-    .add("many builds scaled 2x", () => <BuildListPresenter data={builds} scaleFactor={2}/>)
+storiesOf("Builds", module)
+    .add("one build", () => <BuildsPresenter data={[builds[0]]}/>)
+    .add("many builds", () => <BuildsPresenter data={builds}/>)

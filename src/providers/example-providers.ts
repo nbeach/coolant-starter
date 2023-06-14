@@ -2,6 +2,7 @@ import {cachingProvider, Provider} from "../util/Provider"
 import {BuildStatus} from "../model/Build"
 import {PullRequest, PullRequestStatus} from "../model/PullRequest"
 import moment from "moment"
+import {Alert, Severity} from "../model/Alert"
 
 export const buildProvider = cachingProvider(() => {
     return Promise.resolve([
@@ -54,6 +55,35 @@ export const pullRequestProvider: Provider<readonly PullRequest[]> = () => {
             timeOpened: moment("2019-12-20T12:00:00Z"),
             status: PullRequestStatus.UnderReview,
             reviewers: [{ name: "NB", approved: false}],
+        },
+    ])
+}
+
+export const alertProvider: Provider<readonly Alert[]> = () => {
+    return Promise.resolve([
+        {
+            id: "1",
+            application: "SomeService",
+            link: "https://www.google.com",
+            title: "Thing done be messed up",
+            severity: Severity.Low,
+            timeStarted: moment("2019-12-21T12:00:00Z"),
+        },
+        {
+            id: "2",
+            application: "SomeService",
+            link: "https://www.google.com",
+            title: "This is fine",
+            severity: Severity.Low,
+            timeStarted: moment("2019-12-21T16:00:00Z"),
+        },
+        {
+            id: "3",
+            application: "SomeOtherService",
+            link: "https://www.google.com",
+            title: "PANIC!",
+            severity: Severity.High,
+            timeStarted: moment("2019-12-20T12:00:00Z"),
         },
     ])
 }
