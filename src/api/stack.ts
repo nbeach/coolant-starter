@@ -1,16 +1,21 @@
-import * as cdk from "aws-cdk-lib"
-import { Construct } from "constructs"
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import {Construct, Stack, StackProps} from "@aws-cdk/core"
+import {LambdaRestApi} from "@aws-cdk/aws-apigateway"
+import {NodejsFunction} from "@aws-cdk/aws-lambda-nodejs"
+import {join} from "path"
 
-export class Stack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+export class CoolantStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props)
 
-    // The code that defines your stack goes here
+    const handler = new NodejsFunction(this, "provider-router", {
+      entry: join(__dirname, "provider-router.ts"),
+      handler: "handler",
+    })
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'CcdkQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    const api = new LambdaRestApi(this, "api", { handler, proxy: false })
+
+    const providers = api.root.addResource("providers")
+    const  provider = providers.addResource("{provider}")
+    provider.addMethod("GET")
   }
 }
