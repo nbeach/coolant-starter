@@ -8,16 +8,19 @@ import {atTime} from "./event/Time"
 import {playSound} from "./effect/Sound"
 import {showOverlay} from "./effect/Overlay"
 import {createRoot} from "react-dom/client"
-import {alertProvider, buildProvider, pullRequestProvider} from "./providers/example-providers"
 import {PullRequests} from "./component/PullRequests"
 import {Alerts} from "./component/Alerts"
 import {Builds} from "./component/Builds"
 import "bootstrap/dist/css/bootstrap.css"
 import {TeamLogo} from "./component/TeamLogo"
+import {examplePullRequestProvider} from "./providers/example/example-pull-request-provider"
+import {exampleAlertProvider} from "./providers/example/example-alert-provider"
+import {exampleBuildProvider} from "./providers/example/example-build-provider"
+import {withCaching} from "./providers/core/provider"
 
 atTime("15:49", () => playSound(DangerZoneMusic))
 
-onNewBuild(buildProvider, (priorBuild, currentBuild) => {
+onNewBuild(exampleBuildProvider, (priorBuild, currentBuild) => {
     if (buildNowPassing(priorBuild, currentBuild)) {
         playSound(DogWithDucksSound)
         showOverlay(3, <SuccessOverlay/>)
@@ -38,17 +41,17 @@ root.render(<>
             </div>
             <div className="col">
                 <h2>Open Pull Requests</h2>
-                <PullRequests provider={pullRequestProvider}/>
+                <PullRequests provider={withCaching(60)(examplePullRequestProvider)}/>
             </div>
             <div className="col">
                 <h2>Active Alerts</h2>
-                <Alerts provider={alertProvider}/>
+                <Alerts provider={withCaching(60)(exampleAlertProvider)}/>
             </div>
         </div>
         <div className="row align-items-start">
             <div className="col">
                 <h2>Builds</h2>
-                <Builds provider={buildProvider}/>
+                <Builds provider={withCaching(60)(exampleBuildProvider)}/>
             </div>
         </div>
     </div>

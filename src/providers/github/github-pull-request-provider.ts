@@ -1,8 +1,9 @@
 import {PullRequest, PullRequestStatus, Reviewer} from "../../model/PullRequest"
 import moment from "moment/moment"
-import {cachingProvider, Provider} from "../../util/Provider"
+import {ProviderConfigurator} from "../core/provider"
 import {GitHubRepo, GitHubTeam, listPRs, listReviews} from "./client"
 import {uniqBy} from "ramda"
+import {Secret} from "../core/secret"
 
 const getStatus = (reviews: readonly Reviewer[]) => {
     const approved = reviews.some(review => review.approved)
@@ -13,13 +14,13 @@ const getStatus = (reviews: readonly Reviewer[]) => {
     return PullRequestStatus.New
 }
 
-const getReviews = async (repo: GitHubRepo, pullNumber: number, authToken: string): Promise<readonly Reviewer[]> => {
+const getReviews = async (repo: GitHubRepo, pullNumber: number, authToken: Secret): Promise<readonly Reviewer[]> => {
     const reviews = (await listReviews(repo, pullNumber, authToken))
         .map(review => ({name: review.user?.login || "", approved: review.state === "APPROVED"}))
     return uniqBy(review => review.name + review.approved.toString(), reviews)
 }
 
-const getPRsForRepo = async (repo: GitHubRepo, authToken: string): Promise<readonly PullRequest[]> => {
+const getPRsForRepo = async (repo: GitHubRepo, authToken: Secret ): Promise<readonly PullRequest[]> => {
     const prList = (await listPRs(repo, authToken))
         .filter(pull => pull.state === "open")
 
@@ -38,14 +39,14 @@ const getPRsForRepo = async (repo: GitHubRepo, authToken: string): Promise<reado
     })) as readonly PullRequest[]
 }
 
-export interface PullRequestProviderConfiguration {
-    readonly authToken: string,
+export interface GithubPullRequestProviderConfiguration {
+    readonly authToken: Secret,
     readonly repos: readonly GitHubRepo[],
     readonly teams: readonly GitHubTeam[],
 }
-export const pullRequestProvider = (configuration: PullRequestProviderConfiguration): Provider<readonly PullRequest[]> => {
-    return  cachingProvider(async () => {
+export const githubPullRequestProvider: ProviderConfigurator<GithubPullRequestProviderConfiguration, readonly PullRequest[]> = (configuration) => {
+    return async () => {
         const pulls = configuration.repos.map(repo => getPRsForRepo(repo, configuration.authToken))
         return (await Promise.all(pulls)).flat()
-    }, 60 * 5)
+    }
 }

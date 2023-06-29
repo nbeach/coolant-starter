@@ -1,10 +1,13 @@
 import axios from "axios"
+import {getSecret, isSecretReference, Secret} from "../core/secret"
 
-const getClient = (apiKey: string) => {
+const getClient = async (apiKey: Secret) => {
+    const resolvedKey = isSecretReference(apiKey) ? await getSecret(apiKey) : apiKey
+
     return axios.create({
         baseURL: "https://api.newrelic.com/v2/",
         headers: {
-            "X-Api-Key": apiKey,
+            "X-Api-Key": resolvedKey,
         },
     })
 }
@@ -24,8 +27,9 @@ export interface Violation {
     }
 }
 
-export const getActiveAlerts = async (apiKey: string) => {
-    const response = await getClient(apiKey)
+export const getActiveAlerts = async (apiKey: Secret) => {
+    const client = await getClient(apiKey)
+    const response = await client
         .get<{ readonly violations: readonly Violation[] }>("alerts_violations.json", { params: { only_open: true } })
     return response.data.violations
 }

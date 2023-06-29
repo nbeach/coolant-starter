@@ -16,6 +16,6 @@ export class CoolantStack extends Stack {
 
     const providers = api.root.addResource("providers")
     const  provider = providers.addResource("{provider}")
-    provider.addMethod("GET")
+    provider.addMethod("POST")
   }
 }

@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react"
-import {Provider} from "../../util/Provider"
+import {Provider} from "../../providers/core/provider"
 import {periodically} from "../../event/Time"
 
 export interface ConnectedDataProp<DataPropType> {
@@ -32,7 +32,7 @@ export class Connector<DataPropType, OtherProps> extends React.Component<Connect
     }
 
     public componentDidMount(): void {
-        this.intervalId = periodically(() => this.updateState(), this.props.updateIntervalSeconds)
+        this.intervalId = periodically(this.props.updateIntervalSeconds)(() => this.updateState())
     }
 
     public componentWillUnmount(): void {
