@@ -8,7 +8,7 @@ const invokeAction = (action: () => void | Promise<void>) => {
     }
 }
 
-export const periodically = (intervalSeconds: number = 5): (action: () => void | Promise<void>) => number => {
+export const periodically = (intervalSeconds: number): (action: () => void | Promise<void>) => number => {
     return (action) => {
         invokeAction(action)
         return setInterval(() => invokeAction(action), intervalSeconds * 1000) as any // TODO: Remove this case when storybook issue resolved
@@ -17,7 +17,7 @@ export const periodically = (intervalSeconds: number = 5): (action: () => void |
 
 const isPromise = <T>(value: T | Promise<T>): value is Promise<T> => (value as Promise<T>).then !== undefined
 
-export const periodicallyWithState = (intervalSeconds?: number): <T>(action: (state: T) => T | Promise<T>, initialState: T) => number => {
+export const periodicallyWithState = (intervalSeconds: number): <T>(action: (state: T) => T | Promise<T>, initialState: T) => number => {
     return (action, initialState) => {
         let state = initialState
         return periodically(intervalSeconds)(async () => {
@@ -28,7 +28,7 @@ export const periodicallyWithState = (intervalSeconds?: number): <T>(action: (st
 }
 
 export const atTime = (time: string, action: () => void) => {
-    periodicallyWithState()(({ alreadyTriggered}) => {
+    periodicallyWithState(1)(({ alreadyTriggered}) => {
         const desiredMoment = moment(time, "hh:mm")
         const isDesiredMoment = moment().isSame(desiredMoment, "minute")
 

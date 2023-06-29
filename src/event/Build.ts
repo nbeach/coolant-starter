@@ -3,8 +3,8 @@ import {ObjectMap, toObjectMap} from "../util/ObjectMap"
 import {Build, BuildStatus} from "../model/Build"
 import {Provider} from "../providers/core/provider"
 
-export const onNewBuild = (provider: Provider<readonly Build[]>, action: (priorBuild: Build, currentBuild: Build) => void, updateIntervalSeconds?: number) => {
-    periodicallyWithState(updateIntervalSeconds)(async (priorRetrievedBuild: ObjectMap<Build>) => {
+export const onNewBuild = (provider: Provider<readonly Build[]>, action: (priorBuild: Build, currentBuild: Build) => void) => {
+    periodicallyWithState(1)(async (priorRetrievedBuild: ObjectMap<Build>) => {
         const builds = await provider()
 
         builds

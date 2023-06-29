@@ -8,7 +8,6 @@ export interface ConnectedDataProp<DataPropType> {
 
 export interface ConnectorProps<DataPropType> {
     readonly provider: Provider<DataPropType>
-    readonly updateIntervalSeconds?: number
 }
 
 export interface ConnectorComponentProps<DataPropType, OtherProps> {
@@ -32,7 +31,7 @@ export class Connector<DataPropType, OtherProps> extends React.Component<Connect
     }
 
     public componentDidMount(): void {
-        this.intervalId = periodically(this.props.updateIntervalSeconds)(() => this.updateState())
+        this.intervalId = periodically(1)(() => this.updateState())
     }
 
     public componentWillUnmount(): void {

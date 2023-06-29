@@ -20,7 +20,8 @@ import {withCaching} from "./providers/core/provider"
 
 atTime("15:49", () => playSound(DangerZoneMusic))
 
-onNewBuild(exampleBuildProvider, (priorBuild, currentBuild) => {
+const buildProvider = withCaching(60)(exampleBuildProvider)
+onNewBuild(buildProvider, (priorBuild, currentBuild) => {
     if (buildNowPassing(priorBuild, currentBuild)) {
         playSound(DogWithDucksSound)
         showOverlay(3, <SuccessOverlay/>)
@@ -51,7 +52,7 @@ root.render(<>
         <div className="row align-items-start">
             <div className="col">
                 <h2>Builds</h2>
-                <Builds provider={withCaching(60)(exampleBuildProvider)}/>
+                <Builds provider={buildProvider}/>
             </div>
         </div>
     </div>
