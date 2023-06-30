@@ -1,4 +1,5 @@
 import {GetSecretValueCommand, SecretsManagerClient} from "@aws-sdk/client-secrets-manager"
+import {appConfiguration} from "../../api/app-configuration"
 
 export type Secret = string | SecretReference
 
@@ -13,9 +14,12 @@ let secretCache: { readonly [key: string]: string } = {}
 export const getSecret = async ({secretKey}: SecretReference): Promise<string> => {
     if (secretCache[secretKey]) { return secretCache[secretKey] }
     const client = new SecretsManagerClient({ })
-    const command = new GetSecretValueCommand({ SecretId: secretKey })
+    const command = new GetSecretValueCommand({
+        SecretId: `${appConfiguration.stackName}-${appConfiguration.secretName}`,
+    })
     const response = await client.send(command)
-    if (response.SecretString === undefined) { throw new Error(`Secret "${secretKey}" not found`) }
-    secretCache = { ...secretCache, [secretKey]: response.SecretString }
-    return response.SecretString
+    if (response.SecretString === undefined) { throw new Error(`Secret not found`) }
+    const secrets = JSON.parse(response.SecretString)
+    secretCache = secrets
+    return secrets[secretKey]
 }
