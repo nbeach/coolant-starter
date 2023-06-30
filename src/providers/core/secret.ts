@@ -10,16 +10,20 @@ export interface SecretReference {
 export const secretReference = (key: string): SecretReference => ({ secretKey: key })
 export const isSecretReference = (value: Secret): value is SecretReference => (value as any).secretKey !== undefined
 
-let secretCache: { readonly [key: string]: string } = {}
+let secretCache: Promise<{ readonly [key: string]: string }> | undefined
 export const getSecret = async ({secretKey}: SecretReference): Promise<string> => {
-    if (secretCache[secretKey]) { return secretCache[secretKey] }
-    const client = new SecretsManagerClient({ })
-    const command = new GetSecretValueCommand({
-        SecretId: `${appConfiguration.stackName}-${appConfiguration.secretName}`,
-    })
-    const response = await client.send(command)
-    if (response.SecretString === undefined) { throw new Error(`Secret not found`) }
-    const secrets = JSON.parse(response.SecretString)
-    secretCache = secrets
-    return secrets[secretKey]
+    secretCache = secretCache || (async () => {
+        const client = new SecretsManagerClient({})
+        const command = new GetSecretValueCommand({
+            SecretId: `${appConfiguration.stackName}-${appConfiguration.secretName}`,
+        })
+        const response = await client.send(command)
+        if (response.SecretString === undefined) {
+            throw new Error(`Secret not found`)
+        }
+        const secrets = JSON.parse(response.SecretString)
+        return secrets[secretKey]
+    })()
+
+    return (await secretCache)[secretKey]
 }
