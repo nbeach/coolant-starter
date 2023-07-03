@@ -1,5 +1,5 @@
 import {GetSecretValueCommand, SecretsManagerClient} from "@aws-sdk/client-secrets-manager"
-import {appConfiguration} from "../../api/app-configuration"
+import {apiConfiguration} from "../../api-configuration"
 
 export type Secret = string | SecretReference
 
@@ -15,7 +15,7 @@ export const getSecret = async ({secretKey}: SecretReference): Promise<string> =
     secretCache = secretCache || (async () => {
         const client = new SecretsManagerClient({})
         const command = new GetSecretValueCommand({
-            SecretId: `${appConfiguration.stackName}-${appConfiguration.secretName}`,
+            SecretId: `${apiConfiguration.stackName}-${apiConfiguration.secretName}`,
         })
         const response = await client.send(command)
         if (response.SecretString === undefined) {

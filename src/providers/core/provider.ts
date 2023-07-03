@@ -1,6 +1,6 @@
 import axios from "axios/index"
 import {periodically} from "../../event/Time"
-import {RemoteProvider} from "../remote-provider-registry"
+import {RemoteProvider} from "../../api-configuration";
 
 export type Provider<T> =  () => Promise<T>
 export type ProviderConfigurator<C, T> = (configuration: C) => () => Promise<T>
