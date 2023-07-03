@@ -1,5 +1,5 @@
 import {APIGatewayProxyHandler} from "aws-lambda"
-import {RemoteProvider, remoteProviderRegistry} from "../api-configuration";
+import {RemoteProvider, remoteProviderRegistry} from "../remote-provider-registry"
 
 export const handler: APIGatewayProxyHandler = async (event) =>  {
     const provider: RemoteProvider = event.pathParameters?.provider as RemoteProvider

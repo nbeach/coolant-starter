@@ -1,6 +1,6 @@
 import axios from "axios/index"
 import {periodically} from "../../event/Time"
-import {RemoteProvider} from "../../api-configuration";
+import {RemoteProvider} from "../../remote-provider-registry"
 
 export type Provider<T> =  () => Promise<T>
 export type ProviderConfigurator<C, T> = (configuration: C) => () => Promise<T>
@@ -23,3 +23,4 @@ export const withCaching = (cacheDurationSeconds: number): <T>(provider: Provide
         return () => cache!
     }
 }
+
