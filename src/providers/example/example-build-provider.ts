@@ -1,6 +1,7 @@
-import {BuildStatus} from "../../model/Build"
+import {Build, BuildStatus} from "../../model/Build"
+import {ProviderConfigurator} from "../core/provider"
 
-export const exampleBuildProvider = () => {
+export const exampleBuildProvider: ProviderConfigurator<{}, readonly Build[]> = (_configuration: {}) => () => {
     return Promise.resolve([
         {
             id: "1",

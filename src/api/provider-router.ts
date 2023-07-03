@@ -1,12 +1,28 @@
 import {APIGatewayProxyHandler} from "aws-lambda"
 import {RemoteProvider, remoteProviderRegistry} from "../remote-provider-registry"
 
+
+const headers = {
+    "Access-Control-Allow-Headers" : "Content-Type",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+}
+
+const response = (statusCode: number, body: string) => ({ headers, statusCode, body })
+
 export const handler: APIGatewayProxyHandler = async (event) =>  {
-    const provider: RemoteProvider = event.pathParameters?.provider as RemoteProvider
+    const providerName: RemoteProvider = event.pathParameters?.provider as RemoteProvider
     const configuration = JSON.parse(event.body ?? "")
-    if (provider === undefined) {
-        return { statusCode: 400, body: "No provider specified" }
-    } else {
-        return { statusCode: 200, body: JSON.stringify(remoteProviderRegistry[provider](configuration)) }
+
+    try {
+        if (providerName === undefined || remoteProviderRegistry[providerName] === undefined) {
+            return response(400, "Provider not found or no provider specified")
+        } else {
+            const provider = remoteProviderRegistry[providerName](configuration)
+            return response(200, JSON.stringify(await provider()))
+        }
+    } catch (e: any) {
+        return  response(500, e.stack)
     }
+
 }

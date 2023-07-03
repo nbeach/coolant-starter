@@ -1,8 +1,8 @@
-import {Provider} from "../core/provider"
+import {Provider, ProviderConfigurator} from "../core/provider"
 import {PullRequest, PullRequestStatus} from "../../model/PullRequest"
 import moment from "moment/moment"
 
-export const examplePullRequestProvider: Provider<readonly PullRequest[]> = () => {
+export const examplePullRequestProvider: ProviderConfigurator<{}, readonly PullRequest[]> = (_configuration: {}) => () => {
     return Promise.resolve([
         {
             id: "1",

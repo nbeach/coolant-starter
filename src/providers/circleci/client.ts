@@ -1,10 +1,11 @@
 import axios from "axios"
+import {getSecret, isSecretReference, Secret} from "../core/secret"
 
-const getClient = (apiKey: string) => {
+const getClient = async (apiKey: Secret) => {
     return axios.create({
         baseURL: "https://circleci.com/api/v2",
         headers: {
-            "Circle-Token": apiKey,
+            "Circle-Token": isSecretReference(apiKey) ? await getSecret(apiKey) : apiKey,
         },
     })
 }
@@ -25,14 +26,16 @@ export interface CircleCiWorkflow {
     readonly created_at: string
 }
 
-export const getPipelines = async (projectSlug: string, branch: string, apiKey: string): Promise< readonly CircleCiPipeline[]> => {
-    const response = await getClient(apiKey)
+export const getPipelines = async (projectSlug: string, branch: string, apiKey: Secret): Promise< readonly CircleCiPipeline[]> => {
+    const client = await getClient(apiKey)
+    const response = await client
         .get<{ readonly items: readonly CircleCiPipeline[] }>(`project/${projectSlug}/pipeline`)
     return response.data.items
 }
 
-export const getWorkflows = async (id: string, apiKey: string): Promise< readonly CircleCiWorkflow[]> => {
-    const response = await getClient(apiKey)
+export const getWorkflows = async (id: string, apiKey: Secret): Promise< readonly CircleCiWorkflow[]> => {
+    const client = await getClient(apiKey)
+    const response = await client
         .get<{ readonly items: readonly CircleCiWorkflow[] }>(`pipeline/${id}/workflow`)
     return response.data.items
 }

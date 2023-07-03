@@ -1,13 +1,14 @@
 import {getPipelines, getWorkflows} from "./client"
 import {Build, BuildStatus} from "../../model/Build"
 import {ProviderConfigurator} from "../core/provider"
+import {Secret} from "../core/secret";
 
 export interface CircleCiProject {
     readonly slug: string
     readonly mainBranch: string
 }
 export interface CircleCiBuildProviderConfiguration {
-    readonly apiKey: string,
+    readonly apiKey: Secret,
     readonly projects: readonly CircleCiProject[],
 }
 
@@ -17,7 +18,7 @@ const getStatus = (circleCiStatus: string): BuildStatus => {
     if ( circleCiStatus === "on_hold") { return BuildStatus.ReadyToDeploy }
     return BuildStatus.Failed
 }
-export const buildProvider: ProviderConfigurator<CircleCiBuildProviderConfiguration, readonly Build[]> = (configuration) => {
+export const circleCiBuildProvider: ProviderConfigurator<CircleCiBuildProviderConfiguration, readonly Build[]> = (configuration) => {
     return  async () => {
         const piplines = await Promise.all(configuration
            .projects

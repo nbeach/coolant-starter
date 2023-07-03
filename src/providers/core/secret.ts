@@ -13,7 +13,7 @@ export const isSecretReference = (value: Secret): value is SecretReference => (v
 let secretCache: Promise<{ readonly [key: string]: string }> | undefined
 export const getSecret = async ({secretKey}: SecretReference): Promise<string> => {
     secretCache = secretCache || (async () => {
-        const client = new SecretsManagerClient({})
+        const client = new SecretsManagerClient({ region: apiConfiguration.env?.region})
         const command = new GetSecretValueCommand({
             SecretId: `${apiConfiguration.stackName}-${apiConfiguration.secretName}`,
         })
@@ -21,8 +21,7 @@ export const getSecret = async ({secretKey}: SecretReference): Promise<string> =
         if (response.SecretString === undefined) {
             throw new Error(`Secret not found`)
         }
-        const secrets = JSON.parse(response.SecretString)
-        return secrets[secretKey]
+        return JSON.parse(response.SecretString)
     })()
 
     return (await secretCache)[secretKey]

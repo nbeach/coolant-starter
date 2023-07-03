@@ -1,8 +1,8 @@
-import {Provider} from "../core/provider"
+import {Provider, ProviderConfigurator} from "../core/provider"
 import {Alert, Severity} from "../../model/Alert"
 import moment from "moment/moment"
 
-export const exampleAlertProvider: Provider<readonly Alert[]> = () => {
+export const exampleAlertProvider: ProviderConfigurator<{}, readonly Alert[]> = (_configuration: {}) => () => {
     return Promise.resolve([
         {
             id: "1",

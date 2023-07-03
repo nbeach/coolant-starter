@@ -3,7 +3,7 @@ import {periodically} from "../../event/Time"
 import {RemoteProvider} from "../../remote-provider-registry"
 
 export type Provider<T> =  () => Promise<T>
-export type ProviderConfigurator<C, T> = (configuration: C) => () => Promise<T>
+export type ProviderConfigurator<C, T> = (configuration: C) => Provider<T>
 
 export const remoteProvider = <T, C = any>(apiUrl: string, registeredName: RemoteProvider, configuration: C): Provider<T> => {
     return async () => (
