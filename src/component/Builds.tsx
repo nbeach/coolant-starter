@@ -13,18 +13,18 @@ export const BuildsPresenter = (props: ConnectedDataProp<readonly Build[]>) =>
         </tbody>
     </table>
 
-const BuildRowPresenter = ({ name, status, scaleFactor }: Build & { readonly scaleFactor?: number }) =>
+const BuildRowPresenter = ({ name, status }: Build) =>
     <tr>
         <td className={statusStyleMap[status]}><span>{name}</span> {statusGlyphMap[status]}</td>
     </tr>
 
-const statusStyleMap = {
+const statusStyleMap: { readonly [key: number]: string} = {
     [BuildStatus.Passed]: "bg-success text-center",
     [BuildStatus.Running]: "bg-primary text-center",
     [BuildStatus.Failed]: "bg-danger text-center",
 }
 
-const statusGlyphMap = {
+const statusGlyphMap: { readonly [key: number]: React.ReactElement} = {
     [BuildStatus.Passed]: <FaCheck/>,
     [BuildStatus.Running]: <FaClock/>,
     [BuildStatus.Failed]: <FaExclamation/>,

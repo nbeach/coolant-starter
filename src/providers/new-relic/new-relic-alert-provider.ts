@@ -1,5 +1,5 @@
-import {ProviderConfigurator} from "../core/provider"
 import {Alert, Severity} from "../../model/Alert"
+import {ProviderConfigurator} from "../core/provider"
 import {getActiveAlerts} from "./client"
 import moment from "moment"
 import {Secret} from "../core/secret"
