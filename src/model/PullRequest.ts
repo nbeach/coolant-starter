@@ -1,8 +1,9 @@
 import {Moment} from "moment"
 
 export interface PullRequest {
-    readonly repo: string
     readonly id: string
+    readonly repo: string
+    readonly user: string
     readonly name: string
     readonly link: string
     readonly timeOpened: Moment
@@ -16,8 +17,9 @@ export interface Reviewer {
 }
 
 export enum PullRequestStatus {
-    New,
-    UnderReview,
     ReadyToMerge,
+    UnderReview,
+    New,
+    Draft,
 }
 

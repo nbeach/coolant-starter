@@ -4,11 +4,11 @@ import {getActiveAlerts} from "./client"
 import moment from "moment"
 
 
-export interface AlertProviderConfiguration {
+export interface NewRelicAlertProviderConfiguration {
     readonly apiKey: string,
     readonly policyIds: readonly number[],
 }
-export const alertProvider = (configuration: AlertProviderConfiguration): Provider<readonly Alert[]> => {
+export const alertProvider = (configuration: NewRelicAlertProviderConfiguration): Provider<readonly Alert[]> => {
     return  cachingProvider(async () => {
         const allViolations = await getActiveAlerts(configuration.apiKey)
         return allViolations

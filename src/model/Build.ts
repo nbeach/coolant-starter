@@ -6,7 +6,8 @@ export interface Build {
 }
 
 export enum BuildStatus {
-    Passed = "Passing",
-    Running = "Running",
-    Failed = "Failed",
+    Passed,
+    ReadyToDeploy,
+    Running,
+    Failed ,
 }
